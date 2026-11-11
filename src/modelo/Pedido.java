@@ -80,5 +80,11 @@ public class Pedido {
 	public void addItem(ItemPedido item) {
 		this.setItens(item);
 	}
+
+	//ficha dos pedidos
+	public String ficha(){
+		return "Código do pedido: " + getCodPedido() + "Data do pedido: " + getDataPedidoDate() + "Data da entrega: " + getDataEntregaDate()
+				+ "Dono do pedido: " + getDonoPedidoCliente() + "Itens: " + getItens();
+	}
 	
 }
