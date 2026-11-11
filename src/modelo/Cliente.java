@@ -45,6 +45,10 @@ public class Cliente {
 		this.enderecoString = enderecoString;
 	}
 	
+	//clientes ficha
+	public String ficha() {
+		return "Nome: " + getNome() + "CPF: " + getCpf() + " Telefone: " + getTelefone() + "Endereço" + getEnderecoString();
+	}
 	
 	
 }
