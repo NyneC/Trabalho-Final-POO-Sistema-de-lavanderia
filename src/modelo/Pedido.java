@@ -1,13 +1,36 @@
 package modelo;
-
 import java.time.LocalDate;
-
+import java.util.*;
 public class Pedido {
 	private int codPedido;
 	private LocalDate dataPedidoDate;
 	private LocalDate dataEntregaDate;
 	private boolean entregue;
+	private Cliente donoPedidoCliente;
 	
+	public Cliente getDonoPedidoCliente() {
+		return donoPedidoCliente;
+	}
+
+	public void setDonoPedidoCliente(Cliente donoPedidoCliente) {
+		this.donoPedidoCliente = donoPedidoCliente;
+	}
+
+	public void setItens(List<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
+	private List<ItemPedido> itens;
+	
+	
+	
+	public List<ItemPedido> getItens() {
+		return itens;
+	}
+	
+	public void setItens(ItemPedido item) {
+		this.itens.add(item);
+	}
 	
 	//COdgo Pedido
 	public int getCodPedido() {
@@ -41,15 +64,21 @@ public class Pedido {
 		this.entregue = entregue;
 	}
 	
-	//pedido
-	public Pedido(int codPedido, LocalDate dataPedidoDate, LocalDate dataEntregaDate, boolean entregue) {
-		super();
-		this.codPedido = codPedido;
+
+	
+	
+	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate,Cliente donoPedidoCliente) {
+		this.codPedido = dataPedidoDate.hashCode()+ Integer.parseInt(donoPedidoCliente.getNome());
 		this.dataPedidoDate = dataPedidoDate;
 		this.dataEntregaDate = dataEntregaDate;
-		this.entregue = entregue;
+		this.entregue = false;
+		this.donoPedidoCliente = donoPedidoCliente;
+		this.itens = new ArrayList<ItemPedido>();
 	}
-	
-	//criar o codDoCliente 
+
+	//guarda os itens do pedido
+	public void addItem(ItemPedido item) {
+		this.setItens(item);
+	}
 	
 }

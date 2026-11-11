@@ -9,7 +9,7 @@ public class InterfaceLavaderia {
     
     public static void main(String[] args) {
     
-        Controle sistema_controle;
+        Controle sistema_controle= new Controle();
 
     //Scanner
         //inicializar o Scanner para ler a resposta do usuário
@@ -74,7 +74,7 @@ public class InterfaceLavaderia {
                 //recebe o endereço
                 String endereco = scanner.nextLine();
 
-                Cliente c = new Cliente(cpf, telefone, endereco);
+                Cliente c = new Cliente(nome,cpf, telefone, endereco);
                 sistema_controle.CadastrarCliente(c);
 
                 break;

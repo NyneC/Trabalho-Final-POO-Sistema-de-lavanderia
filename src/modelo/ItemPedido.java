@@ -24,16 +24,18 @@ public class ItemPedido {
 	}
 	
 	//ItemPedido
-	public ItemPedido(int quantidade, int valorTotal) {
+	public ItemPedido(Servico servico,int quantidade) {
 		super();
+		this.servico = servico;
 		this.quantidade = quantidade;
-		this.valorTotal = valorTotal;
+		this.valorTotal = valorTotalServiço();
 	}
 	
 	//calcular o valor total do serviço 
-	public void valorTotalServiço(){
+	public int valorTotalServiço(){
 		int soma = servico.getValorUnidade() * getQuantidade();
-		setValorTotal(valorTotal);	
+		
+		return soma;
 	}
 	public Servico getServico() {
 		return servico;

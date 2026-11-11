@@ -42,7 +42,7 @@ public class Controle {
     public void AdicionarServicoAoPedido(Pedido p,Servico s,int qtd){
 
         if(qtd > 0){
-           // p.addItem(new ItemPedido(s,qtd));
+           p.addItem(new ItemPedido(s,qtd));
         }
 
     }

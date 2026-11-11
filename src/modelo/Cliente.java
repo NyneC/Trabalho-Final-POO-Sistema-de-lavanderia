@@ -18,6 +18,12 @@ public class Cliente {
 	public String getTelefone() {
 		return telefone;
 	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
@@ -31,8 +37,9 @@ public class Cliente {
 	}
 	
 	//construtor
-	public Cliente(String cpf, String telefone, String enderecoString) {
+	public Cliente(String nome,String cpf, String telefone, String enderecoString) {
 		super();
+		this.nome= nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.enderecoString = enderecoString;
