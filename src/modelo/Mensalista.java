@@ -15,6 +15,25 @@ public class Mensalista extends Cliente{
 		this.vencimentoMensaDate = vencimentoMensaDate;
 	}
 
+	public int getCodPlano() {
+		return codPlano;
+	}
+
+
+	public void setCodPlano(int codPlano) {
+		this.codPlano = codPlano;
+	}
+
+
+	public int getValorMensalidade() {
+		return valorMensalidade;
+	}
+
+
+	public void setValorMensalidade(int valorMensalidade) {
+		this.valorMensalidade = valorMensalidade;
+	}
+
 
 	public LocalDate getVencimentoMensaDate() {
 		return vencimentoMensaDate;
