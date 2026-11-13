@@ -1,0 +1,29 @@
+# Arquivos compilados do Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Pastas de saída e compilação
+bin/
+build/
+target/
+out/
+
+# Configurações internas do Eclipse
+.metadata
+.settings/
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
