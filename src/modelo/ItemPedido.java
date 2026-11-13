@@ -4,7 +4,7 @@ import java.util.SortedMap;
 
 public class ItemPedido {
 	private int quantidade;
-	private int valorTotal;
+	private double valorTotal;
 	private Servico servico;
 	
 	//Quantidade
@@ -16,10 +16,10 @@ public class ItemPedido {
 	}
 	
 	//ValorTotal
-	public int getValorTotal() {
+	public double getValorTotal() {
 		return valorTotal;
 	}
-	public void setValorTotal(int valorTotal) {
+	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 	
@@ -32,8 +32,8 @@ public class ItemPedido {
 	}
 	
 	//calcular o valor total do serviço 
-	public int valorTotalServiço(){
-		int soma = servico.getValorUnidade() * getQuantidade();
+	public double valorTotalServiço(){
+		double soma = servico.getValorUnidade() * getQuantidade();
 		
 		return soma;
 	}

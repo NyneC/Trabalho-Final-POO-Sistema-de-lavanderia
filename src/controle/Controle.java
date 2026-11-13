@@ -64,7 +64,7 @@ public class Controle {
     }
     public void PagarCobranca(Cobranca c){
 
-        //c.setPago(true);
+        c.setPago(true);
 
     }
 

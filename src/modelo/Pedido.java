@@ -1,6 +1,8 @@
 package modelo;
 import java.time.LocalDate;
 import java.util.*;
+
+import modelo.ItemPedido;
 public class Pedido {
 	private int codPedido;
 	private LocalDate dataPedidoDate;
@@ -68,7 +70,6 @@ public class Pedido {
 	
 	
 	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate,Cliente donoPedidoCliente) {
-		this.codPedido = dataPedidoDate.hashCode()+ Integer.parseInt(donoPedidoCliente.getNome());
 		this.dataPedidoDate = dataPedidoDate;
 		this.dataEntregaDate = dataEntregaDate;
 		this.entregue = false;
@@ -87,4 +88,14 @@ public class Pedido {
 				+ "Dono do pedido: " + getDonoPedidoCliente() + "Itens: " + getItens();
 	}
 	
+	// Percorre todos os itens da lista e soma os subtotais.
+    public double calcularValorTotal() {
+        double total = 0.0;
+        // 'for (ItemPedido item : itens)': Loop "for-each". 
+        // Equivale em C a: for(int i=0; i < total_itens; i++) { ItemPedido item = itens[i]; ... }
+        for (ItemPedido item : itens) {
+            total += item.getValorTotal();
+        }
+        return total;
+    }
 }

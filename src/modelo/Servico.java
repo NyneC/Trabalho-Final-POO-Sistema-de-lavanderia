@@ -3,7 +3,7 @@ package modelo;
 public class Servico {
 	private int codServico;
 	private String descricao;
-	private int valorUnidade;
+	private double valorUnidade;
 	
 	
 	public int getCodServico() {
@@ -18,7 +18,7 @@ public class Servico {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public int getValorUnidade() {
+	public double getValorUnidade() {
 		return valorUnidade;
 	}
 	public void setValorUnidade(int valorUnidade) {
@@ -26,7 +26,7 @@ public class Servico {
 	}
 	
 	
-	public Servico(int codServico, String descricao, int valorUnidade) {
+	public Servico(int codServico, String descricao, double valorUnidade) {
 		this.codServico = codServico;
 		this.descricao = descricao;
 		this.valorUnidade = valorUnidade;
