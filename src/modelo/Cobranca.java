@@ -7,7 +7,7 @@ public class Cobranca {
 	private double valorTotal;
 	private LocalDate dataVencimenDate;
 	private LocalDate dataPagamentoDate;
-	private Cliente cliente;
+	public Cliente cliente;
 	private boolean pago;
 	private int codPedido;
 	

@@ -21,7 +21,7 @@ public class Servico {
 	public double getValorUnidade() {
 		return valorUnidade;
 	}
-	public void setValorUnidade(int valorUnidade) {
+	public void setValorUnidade(double valorUnidade) {
 		this.valorUnidade = valorUnidade;
 	}
 	

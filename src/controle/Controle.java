@@ -14,8 +14,19 @@ public class Controle {
     private List<Pedido> pedidos = new ArrayList<>();
     private List<Cobranca> cobrancas = new ArrayList<>();
     
+    private int CodPedido = 0;
+    private int CodPlano = 0;
+    
+    public int proximoCodPedido() {
+        return CodPedido++;
+    }
+
+    public int gproximoCodPlano() {
+        return CodPlano++;
+    }
+    
     public void ControleLavanderia() {
-        carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
+        //carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
     }
 
     //Funções cliente
@@ -38,17 +49,24 @@ public class Controle {
         return servicos;
 
     }
+    public void CadastrarServico(Servico s) {
+        if (s != null) {
+            servicos.add(s);
+            salvarNoArquivo();
+        }
+    }
     //Funções pedido
     public void CriarPedido(Pedido p){
 
     	if (p != null) {
+    		p.setCodPedido(proximoCodPedido());
             pedidos.add(p);
             salvarNoArquivo();
         }
 
     }
     public void AdicionarServicoAoPedido(Pedido p,Servico s,int qtd){
-
+    	
     	if (p != null && s != null && qtd > 0) {
             p.addItem(new ItemPedido(s, qtd)); // Chama a função interna do próprio Pedido
             salvarNoArquivo();
@@ -77,7 +95,14 @@ public class Controle {
     public void PagarCobranca(Cobranca c){
 
     	if (c != null) {
+    		LocalDate hoje = LocalDate.now();
             c.setPago(true); // Altera o status do boolean para true
+            c.setDataPagamentoDate(hoje);
+            if (c.getCliente() instanceof Mensalista) {
+                Mensalista m = (Mensalista) c.getCliente();
+                m.setUltimaParcelaPagaDate(hoje);
+            }
+            
             salvarNoArquivo();
         }
 

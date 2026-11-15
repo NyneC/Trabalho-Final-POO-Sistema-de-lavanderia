@@ -5,14 +5,22 @@ import java.time.LocalDate;
 public class Mensalista extends Cliente{
 	private int codPlano;
 	private int valorMensalidade;
-	private LocalDate vencimentoMensaDate;
+	private LocalDate ultimaParcelaPagaDate;
+	private LocalDate dataAdesaoDate;
 	
-	
-	public Mensalista(String nome, String cpf, String telefone, String enderecoString, int codPlano,int valorMensalidade, LocalDate vencimentoMensaDate) {
+	public LocalDate getDataAdesaoDate() {
+		return dataAdesaoDate;
+	}
+
+	public void setDataAdesaoDate(LocalDate dataAdesaoDate) {
+		this.dataAdesaoDate = dataAdesaoDate;
+	}
+
+	public Mensalista(String nome, String cpf, String telefone, String enderecoString, int codPlano,int valorMensalidade) {
 		super(nome, cpf, telefone, enderecoString);
 		this.codPlano = codPlano;
 		this.valorMensalidade = valorMensalidade;
-		this.vencimentoMensaDate = vencimentoMensaDate;
+		this.dataAdesaoDate = LocalDate.now();
 	}
 
 	public int getCodPlano() {
@@ -35,13 +43,36 @@ public class Mensalista extends Cliente{
 	}
 
 
-	public LocalDate getVencimentoMensaDate() {
-		return vencimentoMensaDate;
+	
+	
+	public LocalDate getUltimaParcelaPagaDate() {
+		return ultimaParcelaPagaDate;
 	}
 
+	public void setUltimaParcelaPagaDate(LocalDate ultimaParcelaPagaDate) {
+		this.ultimaParcelaPagaDate = ultimaParcelaPagaDate;
+	}
 
-	public void setVencimentoMensaDate(LocalDate vencimentoMensaDate) {
-		this.vencimentoMensaDate = vencimentoMensaDate;
+	@Override
+	public String ficha() {
+		return "======================\n" +
+	               "Nome: " + getNome()  +
+	               "CPF: " + getCpf() + "\n" +
+	               "Telefone: " + getTelefone()  +
+	               "Mensalidade:" + getValorMensalidade()+  "\n" 
+	               ;
+	}
+	
+	public String fichaompleta() {
+		
+		return ficha() + "ultima Mensalidade: " + getUltimaParcelaPagaDate(); 
+		
+	}
+	
+	@Override
+	double Desconto() {
+		return 0.5;
+		
 	}
 	
 	

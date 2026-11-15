@@ -8,14 +8,14 @@ public class Pedido {
 	private LocalDate dataPedidoDate;
 	private LocalDate dataEntregaDate;
 	private boolean entregue;
-	private Cliente donoPedidoCliente;
+	private String nomeDonoPedido;
 	
-	public Cliente getDonoPedidoCliente() {
-		return donoPedidoCliente;
+	public String getNomeDonoPedido() {
+		return nomeDonoPedido;
 	}
 
-	public void setDonoPedidoCliente(Cliente donoPedidoCliente) {
-		this.donoPedidoCliente = donoPedidoCliente;
+	public void setNomeDonoPedido(String nomeDonoPedido) {
+		this.nomeDonoPedido = nomeDonoPedido;
 	}
 
 	public void setItens(List<ItemPedido> itens) {
@@ -69,12 +69,12 @@ public class Pedido {
 
 	
 	
-	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate,Cliente donoPedidoCliente) {
-		this.dataPedidoDate = dataPedidoDate;
-		this.dataEntregaDate = dataEntregaDate;
-		this.entregue = false;
-		this.donoPedidoCliente = donoPedidoCliente;
-		this.itens = new ArrayList<ItemPedido>();
+	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate, String nomeDonoPedido) {
+	    this.dataPedidoDate = dataPedidoDate;
+	    this.dataEntregaDate = dataEntregaDate;
+	    this.entregue = false;
+	    this.nomeDonoPedido = nomeDonoPedido;
+	    this.itens = new ArrayList<ItemPedido>();
 	}
 
 	//guarda os itens do pedido
@@ -85,16 +85,16 @@ public class Pedido {
 	//ficha dos pedidos
 	public String ficha(){
 		return "Código do pedido: " + getCodPedido() + "Data do pedido: " + getDataPedidoDate() + "Data da entrega: " + getDataEntregaDate()
-				+ "Dono do pedido: " + getDonoPedidoCliente() + "Itens: " + getItens();
+				+ "Dono do pedido: " + getNomeDonoPedido() + "Itens: " + getItens();
 	}
 	
 	// Percorre todos os itens da lista e soma os subtotais.
-    public double calcularValorTotal() {
+    public double calcularValorTotal(Cliente zeCliente) {
         double total = 0.0;
         // 'for (ItemPedido item : itens)': Loop "for-each". 
         // Equivale em C a: for(int i=0; i < total_itens; i++) { ItemPedido item = itens[i]; ... }
         for (ItemPedido item : itens) {
-            total += item.getValorTotal();
+            total += item.getValorTotal() - (item.getValorTotal()*zeCliente.Desconto());
         }
         return total;
     }
