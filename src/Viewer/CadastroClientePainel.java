@@ -26,9 +26,10 @@ public class CadastroClientePainel extends JFrame {
      JComboBox<String> cbTipo = new JComboBox<>(new String[]{"Avulso (Irregular)", "Mensalista"});
      JButton btnSalvar = new JButton("Cadastrar Cliente");
      JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
-     Controle lavanderiaControle = new Controle();
+     Controle lavanderiaControle ;
 
-     public  CadastroClientePainel(){
+     public  CadastroClientePainel(Controle controle){
+    	 lavanderiaControle = controle;
     	 painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 	     painel.add(new JLabel("Tipo de Cliente:"));
 	     painel.add(cbTipo);
@@ -46,23 +47,31 @@ public class CadastroClientePainel extends JFrame {
 	     btnSalvar.addActionListener(e -> criarCliente());
 	     
 	     this.add(painel);
+	     this.setTitle("Cadastro Cliente");
+	     this.setSize(400,350);
+	     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
      }
      private void criarCliente() {
     	 
 	
+    	 try {
 	     String nome = txtNome.getText();
 	     String cpf = txtCpf.getText();
 	     String telefone = txtTelefone.getText();
 	     String endereco = txtEndereco.getText();
 	     Cliente cliente;
 	     
-	     if(cbTipo.getSelectedIndex() == 0) {
-	    	 cliente = new Irregular(nome, cpf, telefone, endereco);
-	     }else {
-	    	 cliente = new Mensalista(nome, cpf, telefone, endereco,lavanderiaControle.gproximoCodPlano(),100);
-	     }
-	     lavanderiaControle.CadastrarCliente(cliente);
-	     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
+	    	 if(cbTipo.getSelectedIndex() == 0) {
+		    	 cliente = new Irregular(nome, cpf, telefone, endereco);
+		     }else {
+		    	 cliente = new Mensalista(nome, cpf, telefone, endereco,lavanderiaControle.gproximoCodPlano(),100);
+		     }
+		     lavanderiaControle.CadastrarCliente(cliente);
+		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
+		} catch (IllegalArgumentException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
+		}
+	     
      }
 
 }
