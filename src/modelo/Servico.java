@@ -22,7 +22,11 @@ public class Servico {
 		return valorUnidade;
 	}
 	public void setValorUnidade(double valorUnidade) {
+		if(valorUnidade<0) {
+			throw new IllegalArgumentException("valor unidade de serviço não pode ser negativa!");
+		}
 		this.valorUnidade = valorUnidade;
+		
 	}
 	
 	

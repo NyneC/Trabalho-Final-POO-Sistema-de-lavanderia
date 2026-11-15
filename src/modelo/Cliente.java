@@ -44,15 +44,12 @@ public abstract class Cliente {
 	public void setCpf(String cpf) {
 		String cpfNumeros = cpf.replaceAll("[-.]", "");
 	  
-		if(cpfNumeros.length() == 11) {
-			
+		if(cpfNumeros.length() != 11) {
+			throw new IllegalArgumentException("cpf invalido!");
+		}
 		this.cpf = cpf;
 		
-		} else {
-			
-		this.cpf = null;
 		
-		}
 	    
 	}
 	
@@ -64,6 +61,9 @@ public abstract class Cliente {
 		return nome;
 	}
 	public void setNome(String nome) {
+		if (nome.trim().isEmpty()) {
+	        throw new IllegalArgumentException("O nome  não pode ficar vazio!");
+	    }
 		this.nome = nome;
 	}
 	
@@ -71,20 +71,16 @@ public abstract class Cliente {
 		
 		String teleNumeros = telefone.replaceAll("[-.]", "");
 		  
-		if(teleNumeros.length() == 11) {
-			
+		if(teleNumeros.length() != 11) {
+			throw new IllegalArgumentException("telefone invalido!");
+		
+		} 
 		this.telefone = teleNumeros;
-		
-		} else {
-			
-		this.telefone = null;
-		
-		}
 	    
 	}
 	
 	//Endereço
-	public String getEnderecoString() {
+	public String getEndereco() {
 		return enderecoString;
 	}
 	public void setEnderecoString(String enderecoString) {
@@ -94,8 +90,8 @@ public abstract class Cliente {
 	//construtor
 	public Cliente(String nome,String cpf, String telefone, String enderecoString) {
 		this.nome= nome;
-		this.cpf = cpf;
-		this.telefone = telefone;
+		setCpf(cpf);
+		setTelefone(telefone);
 		this.enderecoString = enderecoString;
 	}
 	

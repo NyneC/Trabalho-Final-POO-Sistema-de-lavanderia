@@ -2,6 +2,8 @@ package modelo;
 
 import java.time.LocalDate;
 
+
+
 public class Cobranca {
 	private int codCobranca;
 	private double valorTotal;
@@ -40,15 +42,18 @@ public class Cobranca {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
 	public double getValorTotal() {
 		return valorTotal;
 	}
-	public void setValorTotal(int valorTotal) {
+	
+	
+	public void setValorTotal(double valorTotal) {
+		if(valorTotal < 0) {
+			throw new IllegalArgumentException("o valor da cobrança não pode ser menor que 0!");
+		}
 		this.valorTotal = valorTotal;
 	}
+	
 	public LocalDate getDataVencimento() {
 		return dataVencimenDate;
 	}

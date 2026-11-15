@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Mensalista extends Cliente{
 	private int codPlano;
-	private int valorMensalidade;
+	private double valorMensalidade;
 	private LocalDate ultimaParcelaPagaDate;
 	private LocalDate dataAdesaoDate;
 	
@@ -33,12 +33,15 @@ public class Mensalista extends Cliente{
 	}
 
 
-	public int getValorMensalidade() {
+	public double getValorMensalidade() {
 		return valorMensalidade;
 	}
 
 
-	public void setValorMensalidade(int valorMensalidade) {
+	public void setValorMensalidade(double valorMensalidade) {
+		if(valorMensalidade<0) {
+			throw new IllegalArgumentException("valor mensalidade não pode ser negativo!");
+		}
 		this.valorMensalidade = valorMensalidade;
 	}
 

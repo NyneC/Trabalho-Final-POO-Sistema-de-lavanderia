@@ -20,6 +20,9 @@ public class ItemPedido {
 		return valorTotal;
 	}
 	public void setValorTotal(double valorTotal) {
+		if(valorTotal<0) {
+			throw new IllegalArgumentException("valor total de itemPedido não pode ser negativo!");
+		}
 		this.valorTotal = valorTotal;
 	}
 	
