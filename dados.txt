@@ -1,3 +1,0 @@
----CLIENTES---
-A;15favdsd;pedro;vnjdvbsjvbsv;0.0
----SERVICOS---

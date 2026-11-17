@@ -69,7 +69,7 @@ public class Cobranca {
 	public Cobranca(int codCobranca, Cliente cliente,double valorTotal, LocalDate dataVencimenDate) {
 		this.codCobranca = codCobranca;
 		this.cliente = cliente;
-		this.valorTotal = valorTotal;
+		setValorTotal(valorTotal);
 		this.dataVencimenDate = dataVencimenDate;
 	}
 }

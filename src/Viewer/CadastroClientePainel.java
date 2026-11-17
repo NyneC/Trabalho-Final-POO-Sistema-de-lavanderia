@@ -11,9 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import modelo.Cliente;
-import modelo.Irregular;
-import modelo.Mensalista;
+import modelo.*;
 import controle.*;
 
 public class CadastroClientePainel extends JFrame {
@@ -30,6 +28,8 @@ public class CadastroClientePainel extends JFrame {
 
      public  CadastroClientePainel(Controle controle){
     	 lavanderiaControle = controle;
+    	 
+    	 //exibe para o usuario e pega a entrada
     	 painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 	     painel.add(new JLabel("Tipo de Cliente:"));
 	     painel.add(cbTipo);

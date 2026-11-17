@@ -9,11 +9,12 @@ public class Irregular extends Cliente {
 
 	@Override
 	public String ficha() {
-		return "======================\n" +
+		return "==============================================\n" +
 	               "Nome: " + getNome()  +
-	               "CPF: " + getCpf() + "\n" +
-	               "Telefone: " + getTelefone() + "\n" +
-	               "========================";
+	               " CPF: " + getCpf() + "\n" +
+	               "Telefone: " + getTelefone() + 
+	               " Endereço:"+ getEndereco() +"\n" +
+	               "==============================================\n";
 	}
 	
 	@Override

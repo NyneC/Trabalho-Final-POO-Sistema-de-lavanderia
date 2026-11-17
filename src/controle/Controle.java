@@ -1,7 +1,6 @@
 package controle;
 
 import java.io.*;
-import java.security.cert.TrustAnchor;
 import java.time.LocalDate;
 import java.util.*;
 import modelo.*;
@@ -25,8 +24,8 @@ public class Controle {
         return CodPlano++;
     }
     
-    public void ControleLavanderia() {
-        //carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
+    public void ControleLavanderia()  {
+        carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
     }
 
     //Funções cliente
@@ -107,6 +106,15 @@ public class Controle {
         }
 
     }
+    
+    public double pendencias(Cliente zeCliente) {
+    	double total= 0 ;
+    	for(Cobranca zeCobranca:zeCliente.getPendencias()) {
+    		total+=zeCobranca.getValorTotal();
+    	}
+    	zeCliente.setSaldoDevido(total);
+    	return total;
+    }
     private void salvarNoArquivo() {
         // 'try-with-resources': Abre o arquivo e fecha automaticamente no final (como dar fclose)
         try (PrintWriter pw = new PrintWriter(new File(Historico))) {
@@ -116,9 +124,9 @@ public class Controle {
                 String tipo = (c instanceof Mensalista) ? "M" : "A";
                 // Casting: ((Mensalista) c) avisa o Java "trate a variável c como Mensalista para acessar getValorMensalidade()"
                 double valor = (c instanceof Mensalista) ? ((Mensalista) c).getValorMensalidade() : 0.0;
-                
+                int codPlano = (c instanceof Mensalista) ? ((Mensalista) c).getCodPlano():0;
                 // Grava uma linha de texto separada por ';' (formato CSV/Texto)
-                pw.println(tipo + ";" + c.getCpf() + ";" + c.getNome() + ";" + c.getTelefone() + ";" + valor);
+                pw.println(tipo + ";" + c.getCpf() + ";" + c.getNome() + ";" + c.getTelefone() + ";" + c.getEndereco()+ ";"  + valor+ ";" + codPlano );
             }
             
             pw.println("---SERVICOS---");
@@ -129,8 +137,8 @@ public class Controle {
             // Em caso de erro de I/O, apenas ignora para manter simples no ambiente acadêmico
         }
     }
-    /*
-    private void carregarDoArquivo() {
+   
+    private void carregarDoArquivo()  {
         File arquivo = new File(Historico);
         if (!arquivo.exists()) {
             return; // Se o arquivo ainda não existe (primeira execução), sai sem erro
@@ -138,25 +146,37 @@ public class Controle {
 
         try (Scanner leitor = new Scanner(arquivo)) {
             String secaoAtual = "";
+            
+            //faz o ponteiro ler linha a linha do arquivo 
             while (leitor.hasNextLine()) {
                 String linha = leitor.nextLine();
+                
+                //sempre q encontrar o cabeçalho de uma seção faz o pontero avançar para os dados
                 if (linha.equals("---CLIENTES---") || linha.equals("---SERVICOS---")) {
-                    secaoAtual = linha;
+                    secaoAtual = linha;//atualiza a seção atual 
                     continue; // Pula a linha do cabeçalho
                 }
-
-                // .split(";"): Quebra a string onde tem ';' e cria um vetor de Strings (como o strtok do C)
+ 
+                //faz um vetor de string q lê e armazena dados te encontrar um ;
                 String[] partes = linha.split(";");
                 
+                
+                //se a seão atual for clinetes começa a add na memoria ram 
                 if (secaoAtual.equals("---CLIENTES---") && partes.length >= 4) {
+                	
+                	//lê cada parte do aruqivo txt e guarda em uma variavel
                     String tipo = partes[0];
-                    int id = Integer.parseInt(partes[1]);     // atoi() do C
+                    String cpf = partes[1];     
                     String nome = partes[2];
                     String telefone = partes[3];
+                    String enderecoString= partes[4];
 
                     if (tipo.equals("M")) {
-                        double valor = Double.parseDouble(partes[4]); // atof() do C
-                        clientes.add(new Mensalista(nome, cpf, telefone, enderecoString));
+                    	double valor = Double.parseDouble(partes[5]); // atof() do C
+                    	int codPlano = Integer.parseInt(partes[6]); 
+                        clientes.add(new Mensalista(nome, cpf, telefone, enderecoString,codPlano,valor));
+                         } else {
+                        	 clientes.add(new Irregular(nome, cpf, telefone, enderecoString));
                          }
                 } else if (secaoAtual.equals("---SERVICOS---") && partes.length >= 3) {
                     int id = Integer.parseInt(partes[0]);
@@ -167,7 +187,9 @@ public class Controle {
             }
         } catch (Exception e) {
             // Se houver erro de parsing na leitura, inicia com listas limpas
+        	e.printStackTrace();
+        	throw new IllegalArgumentException("erro ao ler dados clientes");
         }
-    }*/
+    }
 
 }

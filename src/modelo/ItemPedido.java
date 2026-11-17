@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.SortedMap;
-
 public class ItemPedido {
 	private int quantidade;
 	private double valorTotal;
@@ -31,7 +29,7 @@ public class ItemPedido {
 		super();
 		this.servico = servico;
 		this.quantidade = quantidade;
-		this.valorTotal = valorTotalServiço();
+		 setValorTotal(valorTotalServiço());
 	}
 	
 	//calcular o valor total do serviço 

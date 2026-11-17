@@ -19,32 +19,33 @@ public class ListarClientes extends JFrame {
 	private JTextArea lista = new JTextArea();
 	
 	public ListarClientes(Controle controle) {
-		lavanderiaControle = controle;
-		lista.setEditable(false);
+		lavanderiaControle = controle;//inicializa o controle e carrega os dados para ram;
+		lista.setEditable(false);//faz com q a pessoa n possa editar os campos
 		
-		JScrollPane listaScrollPane = new JScrollPane(lista);
+		JScrollPane listaScrollPane = new JScrollPane(lista);//faz a parte de scroll do mouse 
 		
-		List<Cliente> listaClientes = lavanderiaControle.ListarClientes();
+		List<Cliente> listaClientes = lavanderiaControle.ListarClientes();//vetor para salvar os clientes q seão exibidos
 		
-		StringBuilder listaCompletaBuilder = new StringBuilder();
+		StringBuilder listaCompletaBuilder = new StringBuilder();//cria como se fosse um editor de texto para poder juntar as fichas dos clientes
+		//para percorrer e add no "ditor de texto"
 		for(Cliente zeCliente:listaClientes) {
 			listaCompletaBuilder.append(zeCliente.ficha());
 		}
 		
-		lista.setText(listaCompletaBuilder.toString());
+		lista.setText(listaCompletaBuilder.toString());//envia o testo editado pelo bulder para a lista 
 		
 		lista.setCaretPosition(0);
 		
-		JPanel principalJPanel = new JPanel();
-		principalJPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-		principalJPanel.add(listaScrollPane,BorderLayout.CENTER);
+		JPanel principalJPanel = new JPanel();//painel para poder mostrar lista para as pessoas
+		principalJPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));//padrao tudo de listar vai ter isso
+		principalJPanel.add(listaScrollPane,BorderLayout.CENTER);//add o lista no painel
 		
 		
-		this.add(principalJPanel);
-        this.setTitle("Clientes Cadastrados");
+		this.add(principalJPanel);//add painel na janela 
+        this.setTitle("Clientes Cadastrados");//nome da janela
         this.setSize(400, 450);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);//para o painel ser centralizado
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//dispo_on_close fecha so a janela atual
 		
 	}
 	

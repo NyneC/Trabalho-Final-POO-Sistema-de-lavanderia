@@ -16,11 +16,11 @@ public class Mensalista extends Cliente{
 		this.dataAdesaoDate = dataAdesaoDate;
 	}
 
-	public Mensalista(String nome, String cpf, String telefone, String enderecoString, int codPlano,int valorMensalidade) {
+	public Mensalista(String nome, String cpf, String telefone, String enderecoString, int codPlano,double valorMensalidade) {
 		super(nome, cpf, telefone, enderecoString);
-		this.codPlano = codPlano;
-		this.valorMensalidade = valorMensalidade;
-		this.dataAdesaoDate = LocalDate.now();
+		setCodPlano(codPlano);
+		setValorMensalidade(valorMensalidade);;
+		setDataAdesaoDate(LocalDate.now());
 	}
 
 	public int getCodPlano() {
@@ -58,11 +58,12 @@ public class Mensalista extends Cliente{
 
 	@Override
 	public String ficha() {
-		return "======================\n" +
+		return "================== mensalista ==================\n" +
 	               "Nome: " + getNome()  +
-	               "CPF: " + getCpf() + "\n" +
+	               " CPF: " + getCpf() + "\n" +
 	               "Telefone: " + getTelefone()  +
-	               "Mensalidade:" + getValorMensalidade()+  "\n" 
+	               " Mensalidade:" + getValorMensalidade() + 
+	               "\n==============================================\n" 
 	               ;
 	}
 	

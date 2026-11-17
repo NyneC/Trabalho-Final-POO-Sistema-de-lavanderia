@@ -2,7 +2,6 @@ package modelo;
 import java.time.LocalDate;
 import java.util.*;
 
-import modelo.ItemPedido;
 public class Pedido {
 	private int codPedido;
 	private LocalDate dataPedidoDate;

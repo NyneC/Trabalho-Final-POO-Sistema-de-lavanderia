@@ -13,19 +13,25 @@ public class TelaMenu extends JFrame {
     private JButton btnCadastrarCliente = new JButton("Cadastrar Cliente");
     private JButton btnOutraOpcao = new JButton("Outra Opção");
     private JButton listaClientesButton= new JButton("Lista Clientes");
+    private JButton listarPedidosButton= new JButton("Lista Pedidos");
     private JButton btnSair = new JButton("Sair");
+    private JButton algoaquiButton = new JButton("algo aqui");
+    private JButton maisButtonBotaoButton = new JButton("Mais foibafb");
     
     public TelaMenu() {
         // Espaçamento interno das bordas
-        painel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+        painel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 50));
 
         // Adiciona os botões no painel
         painel.add(btnCadastrarCliente);
         painel.add(btnOutraOpcao);
         painel.add(listaClientesButton);
+        painel.add(listarPedidosButton);
         painel.add(btnSair);
+        painel.add(algoaquiButton);
+        painel.add(maisButtonBotaoButton);
 
-        // Ouvintes dos botões
+        // Ouvintes 
         btnCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
         listaClientesButton.addActionListener(e -> abrirListaCLientes());
         btnSair.addActionListener(e -> System.exit(0));
@@ -33,9 +39,16 @@ public class TelaMenu extends JFrame {
         // Configurações da janela principal
         this.add(painel);
         this.setTitle("Menu Principal - Lavanderia");
-        this.setSize(350, 300);
+        this.setSize(980,800);
         this.setLocationRelativeTo(null); // Centraliza na tela
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha todo o programa ao clicar no X
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+        try {
+			
+        	lavanderiaControle.ControleLavanderia();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
+		}
     }
     
     private void abrirCadastroCliente() {

@@ -1,6 +1,5 @@
 package modelo;
 
-import java.nio.channels.FileChannel;
 import java.util.*;
 
 public abstract class Cliente {
@@ -17,7 +16,9 @@ public abstract class Cliente {
 	}
 
 	public void setSaldoDevido(double saldoDevido) {
-		if(saldoDevido > 0)
+		if(saldoDevido < 0) {
+			throw new IllegalArgumentException("saldoDevido do cliente não pode ser negativo!");
+		}
 		this.saldoDevido = saldoDevido;
 		
 	}
@@ -26,6 +27,9 @@ public abstract class Cliente {
 		pendencias.add(zeCobranca);
 	}
 	
+	public List<Cobranca> getPendencias() {
+		return pendencias;
+	}
 	public double calculaTotalDevido() {
 		double total = 0;
 		for(Cobranca zeCobranca: pendencias) {
@@ -61,7 +65,7 @@ public abstract class Cliente {
 		return nome;
 	}
 	public void setNome(String nome) {
-		if (nome.trim().isEmpty()) {
+		if (nome.equals("")) {
 	        throw new IllegalArgumentException("O nome  não pode ficar vazio!");
 	    }
 		this.nome = nome;
@@ -84,15 +88,18 @@ public abstract class Cliente {
 		return enderecoString;
 	}
 	public void setEnderecoString(String enderecoString) {
+		if(enderecoString.equals("")) {
+			throw new IllegalArgumentException("Endereço não pode estar vazio!");
+		}
 		this.enderecoString = enderecoString;
 	}
 	
 	//construtor
 	public Cliente(String nome,String cpf, String telefone, String enderecoString) {
-		this.nome= nome;
+		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
-		this.enderecoString = enderecoString;
+		setEnderecoString(enderecoString);;
 	}
 	
 	//clientes ficha

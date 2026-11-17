@@ -1,23 +1,24 @@
 
 package Viewer;
 
-import controle.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
+import controle.Controle;
 import modelo.Cliente;
-import modelo.Pedido;
-import modelo.Servico;
 import modelo.Cobranca;
 import modelo.Irregular;
 import modelo.Mensalista;
-
-import java.util.List;
-import java.util.Scanner;
-import java.time.LocalDate;
+import modelo.Pedido;
+import modelo.Servico;
 
 public class InterfaceLavaderia {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Controle sistema_controle = new Controle();
+        sistema_controle.ControleLavanderia();
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
