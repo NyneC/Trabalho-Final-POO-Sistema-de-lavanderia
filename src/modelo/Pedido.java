@@ -1,5 +1,7 @@
 package modelo;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
 
 public class Pedido {
@@ -80,12 +82,6 @@ public class Pedido {
 	public void addItem(ItemPedido item) {
 		this.setItens(item);
 	}
-
-	//ficha dos pedidos
-	public String ficha(){
-		return "Código do pedido: " + getCodPedido() + "Data do pedido: " + getDataPedidoDate() + "Data da entrega: " + getDataEntregaDate()
-				+ "Dono do pedido: " + getNomeDonoPedido() + "Itens: " + getItens();
-	}
 	
 	// Percorre todos os itens da lista e soma os subtotais.
     public double calcularValorTotal(Cliente zeCliente) {
@@ -97,4 +93,15 @@ public class Pedido {
         }
         return total;
     }
+    public String ficha() {
+		return "================== Pedidos ==================\n" +
+	               "Código do pedido: " + getCodPedido()  +
+	               "Data do pedido: " + getDataPedidoDate() + "\n" +
+	               "Data de entrega: " + getDataEntregaDate()  +
+	               "Dono do pedido:" + getNomeDonoPedido() + "\n" +
+	               "Itens:" + getItens() + 
+	               "\n==============================================\n" 
+	               ;
+	}
+	
 }
