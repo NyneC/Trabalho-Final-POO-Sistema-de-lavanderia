@@ -29,13 +29,22 @@ public class Servico {
 		
 	}
 	
-	
+	//Construtor
 	public Servico(int codServico, String descricao, double valorUnidade) {
-		this.codServico = codServico;
-		this.descricao = descricao;
-		this.valorUnidade = valorUnidade;
+		setCodServico(codServico);
+		setDescricao(descricao);
+		setValorUnidade(valorUnidade);
 	}
 	
+	//Método que retonar a ficha dos Serviços
+	public String ficha() {
+		return "================== mensalista ==================\n" +
+	               "Código do serviço: " + getCodServico()  +
+	               " Descrição: " + getDescricao() + "\n" +
+	               "Telefone: " + getValorUnidade()  + 
+	               "\n==============================================\n" 
+	               ;
+	}
 	
 }
 	
