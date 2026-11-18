@@ -69,10 +69,10 @@ public class Pedido {
 	
 	
 	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate, String nomeDonoPedido) {
-	    this.dataPedidoDate = dataPedidoDate;
-	    this.dataEntregaDate = dataEntregaDate;
+	    setDataPedidoDate(dataPedidoDate);
+	    setDataEntregaDate(dataEntregaDate);
 	    this.entregue = false;
-	    this.nomeDonoPedido = nomeDonoPedido;
+	    setNomeDonoPedido(nomeDonoPedido);
 	    this.itens = new ArrayList<ItemPedido>();
 	}
 

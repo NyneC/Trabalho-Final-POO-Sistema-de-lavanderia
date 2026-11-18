@@ -11,9 +11,9 @@ public class TelaMenu extends JFrame {
 	
 	private JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
     private JButton btnCadastrarCliente = new JButton("Cadastrar Cliente");
-    private JButton btnOutraOpcao = new JButton("Outra Opção");
+    private JButton btnCadastrarPedido = new JButton("Cadastrar Pedido");
     private JButton listaClientesButton= new JButton("Lista Clientes");
-    private JButton listarPedidosButton= new JButton("Lista Pedidos");
+    private JButton listarPedidosButton= new JButton("Listar Pedidos");
     private JButton btnSair = new JButton("Sair");
     private JButton algoaquiButton = new JButton("algo aqui");
     private JButton maisButtonBotaoButton = new JButton("Mais foibafb");
@@ -24,7 +24,7 @@ public class TelaMenu extends JFrame {
 
         // Adiciona os botões no painel
         painel.add(btnCadastrarCliente);
-        painel.add(btnOutraOpcao);
+        painel.add(btnCadastrarPedido);
         painel.add(listaClientesButton);
         painel.add(listarPedidosButton);
         painel.add(btnSair);
@@ -34,6 +34,8 @@ public class TelaMenu extends JFrame {
         // Ouvintes 
         btnCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
         listaClientesButton.addActionListener(e -> abrirListaCLientes());
+        btnCadastrarPedido.addActionListener(e -> abrirCadastrarPedido());
+        listarPedidosButton.addActionListener(e -> abrirListarPedidos());
         btnSair.addActionListener(e -> System.exit(0));
 
         // Configurações da janela principal
@@ -59,6 +61,15 @@ public class TelaMenu extends JFrame {
     private void abrirListaCLientes() {
     	ListarClientes telaListarClientes = new ListarClientes(lavanderiaControle);
     	telaListarClientes.setVisible(true);
+    }
+    private void abrirCadastrarPedido() {
+        CadastrarPedidoPainel telaCadastrar = new CadastrarPedidoPainel(lavanderiaControle);
+        telaCadastrar.setVisible(true);
+    }
+    
+    private void abrirListarPedidos() {
+    	ListarPedidos telaListarPedidos = new ListarPedidos(lavanderiaControle);
+    	telaListarPedidos.setVisible(true);
     }
     
 
