@@ -44,6 +44,7 @@ public class CadastroClientePainel extends JFrame {
 	     painel.add(new JLabel()); // Espaço vazio
 	     painel.add(btnSalvar);
 	     
+	     //ouvinte
 	     btnSalvar.addActionListener(e -> criarCliente());
 	     
 	     this.add(painel);
@@ -67,6 +68,7 @@ public class CadastroClientePainel extends JFrame {
 		    	 cliente = new Mensalista(nome, cpf, telefone, endereco,lavanderiaControle.gproximoCodPlano(),100);
 		     }
 		     lavanderiaControle.CadastrarCliente(cliente);
+		     
 		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);

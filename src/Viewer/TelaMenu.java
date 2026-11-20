@@ -15,8 +15,8 @@ public class TelaMenu extends JFrame {
     private JButton listaClientesButton= new JButton("Lista Clientes");
     private JButton listarPedidosButton= new JButton("Listar Pedidos");
     private JButton btnSair = new JButton("Sair");
-    private JButton algoaquiButton = new JButton("algo aqui");
-    private JButton maisButtonBotaoButton = new JButton("Mais foibafb");
+    private JButton cadastroServicoButton = new JButton("Cadastrar Serviço");
+    private JButton listaservicosButton = new JButton("Listar serviço");
     
     public TelaMenu() {
         // Espaçamento interno das bordas
@@ -28,14 +28,16 @@ public class TelaMenu extends JFrame {
         painel.add(listaClientesButton);
         painel.add(listarPedidosButton);
         painel.add(btnSair);
-        painel.add(algoaquiButton);
-        painel.add(maisButtonBotaoButton);
+        painel.add(cadastroServicoButton);
+        painel.add(listaservicosButton);
 
         // Ouvintes 
         btnCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
         listaClientesButton.addActionListener(e -> abrirListaCLientes());
         btnCadastrarPedido.addActionListener(e -> abrirCadastrarPedido());
         listarPedidosButton.addActionListener(e -> abrirListarPedidos());
+        cadastroServicoButton.addActionListener(e-> abrirCadastroServico());
+      //  listaservicosButton.addActionListener(e->abrir);
         btnSair.addActionListener(e -> System.exit(0));
 
         // Configurações da janela principal
@@ -72,6 +74,14 @@ public class TelaMenu extends JFrame {
     	telaListarPedidos.setVisible(true);
     }
     
+    private void abrirCadastroServico() {
+    	CadastrarServico telaCadastrarServico = new CadastrarServico(lavanderiaControle);
+    	telaCadastrarServico.setVisible(true);
+    }
+    
+    private void abrirlistaservicos() {
+    	
+    }
 
     // Método principal para iniciar o programa
     public static void main(String[] args) {

@@ -64,7 +64,7 @@ public class CadastrarServico extends JFrame{
 	     servico = new Servico(codServico, descricaoServico, valorServico);
 	     
 		     lavanderiaControle.CadastrarServico(servico);
-		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
+		     JOptionPane.showMessageDialog(this,servico.ficha() + "\n Criado com sucesso");
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
 		}
