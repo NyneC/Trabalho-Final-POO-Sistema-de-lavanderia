@@ -148,7 +148,6 @@ public class CadastrarPedidoPainel extends JFrame {
 
             Cobranca cobranca = new Cobranca(
                     pedido.getCodPedido(),
-                    clienteEncontrado,
                     total,
                     hojeDate.plusMonths(1)
             );

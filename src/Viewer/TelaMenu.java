@@ -79,9 +79,7 @@ public class TelaMenu extends JFrame {
     	telaCadastrarServico.setVisible(true);
     }
     
-    private void abrirlistaservicos() {
-    	
-    }
+ 
 
     // Método principal para iniciar o programa
     public static void main(String[] args) {

@@ -10,6 +10,9 @@ public class ItemPedido {
 		return quantidade;
 	}
 	public void setQuantidade(int quantidade) {
+		if(quantidade<1) {
+			throw new IllegalArgumentException("Quantidade de itemPedido não pode ser negativo!");
+		}
 		this.quantidade = quantidade;
 	}
 	
@@ -18,7 +21,7 @@ public class ItemPedido {
 		return valorTotal;
 	}
 	public void setValorTotal(double valorTotal) {
-		if(valorTotal<0) {
+		if(valorTotal<1) {
 			throw new IllegalArgumentException("valor total de itemPedido não pode ser negativo!");
 		}
 		this.valorTotal = valorTotal;
@@ -45,5 +48,14 @@ public class ItemPedido {
 		this.servico = servico;
 	}
 	
+	   public String ficha() {
+			return 
+					"\n++++++++++++++++++++++++++++++\n"+
+		               "Serviço: " + servico.getDescricao()  +
+		               " Quantidade: " + getQuantidade() + "+\n" +
+		               " Valor total: " + getValorTotal()  +
+		              "\n++++++++++++++++++++++++++++++"
+		               ;
+	   }
 	
 }

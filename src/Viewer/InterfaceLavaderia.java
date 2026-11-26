@@ -2,6 +2,7 @@
 package Viewer;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -258,20 +259,20 @@ public class InterfaceLavaderia {
 
         for (Cobranca cobranca : controle.ListaCobranca()) {
 
-            if (cobranca.getCliente() != null
-                    && cobranca.getCliente().getCpf() != null
-                    && cobranca.getCliente().getCpf()
-                    .equalsIgnoreCase(clienteEncontrado.getCpf())) {
-
-                encontrou = true;
-
-                System.out.println(
-                        "Pedido ID: " + cobranca.getCodPedido()
-                        + " | Valor: R$ " + cobranca.getValorTotal()
-                        + " | Vencimento: " + cobranca.getDataVencimento()
-                        + " | Status: " + (cobranca.isPago() ? "Paga" : "Pendente"));
-            }
-        }
+//            if (cobranca.getCliente() != null
+//                    && cobranca.getCliente().getCpf() != null
+//                    && cobranca.getCliente().getCpf()
+//                    .equalsIgnoreCase(clienteEncontrado.getCpf())) {
+//
+//                encontrou = true;
+//
+//                System.out.println(
+//                        "Pedido ID: " + cobranca.getCodPedido()
+//                        + " | Valor: R$ " + cobranca.getValorTotal()
+//                        + " | Vencimento: " + cobranca.getDataVencimento()
+//                        + " | Status: " + (cobranca.isPago() ? "Paga" : "Pendente"));
+//            }
+//        }
 
         if (!encontrou) {
             System.out.println("Esse cliente não possui cobranças registradas.");
@@ -291,9 +292,9 @@ public class InterfaceLavaderia {
 
                 encontrouPendente = true;
 
-                String nomeCliente = cobranca.getCliente() == null
+                String nomeCliente = cobranca.getNomeCliente() == null
                         ? "Cliente não informado"
-                        : cobranca.getCliente().getNome();
+                        : cobranca.getNomeCliente();
 
                 System.out.println(
                         "Pedido ID: " + cobranca.getCodPedido()
@@ -324,11 +325,19 @@ public class InterfaceLavaderia {
         }
 
         if (cobrancaEncontrada != null) {
+        
+	        Cliente clienteEncontradoCliente;
+	        List<Cliente> clientes = controle.ListarClientes(); 
+	        for(Cliente zeCliente:clientes) {
+	        	if (cobrancaEncontrada.equals(zeCliente.getNome())) {
+	        		clienteEncontradoCliente = zeCliente;
+	        		controle.PagarCobranca(cobrancaEncontrada,clienteEncontradoCliente);
+	        		
+	        		System.out.println("\n[SUCESSO] Pendência do pedido "
+	        				+ codPedido + " paga!");
+        	}
+        }
 
-            controle.PagarCobranca(cobrancaEncontrada);
-
-            System.out.println("\n[SUCESSO] Pendência do pedido "
-                    + codPedido + " paga!");
 
         } else {
             System.out.println("\n[ERRO] Pendência não encontrada ou já paga.");

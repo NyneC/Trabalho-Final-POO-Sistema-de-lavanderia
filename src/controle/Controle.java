@@ -29,13 +29,22 @@ public class Controle {
     }
 
     //Funções cliente
-    public void CadastrarCliente(Cliente c){
+    public Cliente CadastrarCliente( int tipo,String nome, String cpf, String telefone, 
+			String enderecoString, double valorMensalidade){
 
+    	Cliente c;
+    	if(tipo == 1) {
+    		c = FactoryCliente.createMensalista(nome, cpf, telefone, enderecoString, gproximoCodPlano(), valorMensalidade);
+    	} else {
+			c = FactoryCliente.createIregularCliente(nome, cpf, telefone, enderecoString);
+		}
+    	
     	if (c != null) {
             clientes.add(c); // .add(c): Inserção no fim do vetor dinâmico (aloca espaço automaticamente)
             salvarNoArquivo(); // Salva no disco imediatamente
         }
 
+    	return c;
     }
     public List<Cliente> ListarClientes(){
 
@@ -91,14 +100,14 @@ public class Controle {
         return cobrancas;
 
     }
-    public void PagarCobranca(Cobranca c){
+    public void PagarCobranca(Cobranca c, Cliente zeCliente){
 
     	if (c != null) {
     		LocalDate hoje = LocalDate.now();
             c.setPago(true); // Altera o status do boolean para true
             c.setDataPagamentoDate(hoje);
-            if (c.getCliente() instanceof Mensalista) {
-                Mensalista m = (Mensalista) c.getCliente();
+            if (zeCliente instanceof Mensalista) {
+                Mensalista m = (Mensalista) zeCliente;
                 m.setUltimaParcelaPagaDate(hoje);
             }
             
@@ -115,6 +124,12 @@ public class Controle {
     	zeCliente.setSaldoDevido(total);
     	return total;
     }
+    
+    
+    
+    
+    
+    //ARQUIVOS
     private void salvarNoArquivo() {
         // 'try-with-resources': Abre o arquivo e fecha automaticamente no final (como dar fclose)
         try (PrintWriter pw = new PrintWriter(new File(Historico))) {
@@ -138,57 +153,65 @@ public class Controle {
         }
     }
    
-    private void carregarDoArquivo()  {
+    private void carregarDoArquivo() {
         File arquivo = new File(Historico);
         if (!arquivo.exists()) {
-            return; // Se o arquivo ainda não existe (primeira execução), sai sem erro
+            return; // Se o arquivo ainda não existe, sai sem erro
         }
 
         try (Scanner leitor = new Scanner(arquivo)) {
             String secaoAtual = "";
-            
-            //faz o ponteiro ler linha a linha do arquivo 
-            while (leitor.hasNextLine()) {
-                String linha = leitor.nextLine();
-                
-                //sempre q encontrar o cabeçalho de uma seção faz o pontero avançar para os dados
-                if (linha.equals("---CLIENTES---") || linha.equals("---SERVICOS---")) {
-                    secaoAtual = linha;//atualiza a seção atual 
-                    continue; // Pula a linha do cabeçalho
-                }
- 
-                //faz um vetor de string q lê e armazena dados te encontrar um ;
-                String[] partes = linha.split(";");
-                
-                
-                //se a seão atual for clinetes começa a add na memoria ram 
-                if (secaoAtual.equals("---CLIENTES---") && partes.length >= 4) {
-                	
-                	//lê cada parte do aruqivo txt e guarda em uma variavel
-                    String tipo = partes[0];
-                    String cpf = partes[1];     
-                    String nome = partes[2];
-                    String telefone = partes[3];
-                    String enderecoString= partes[4];
 
+            while (leitor.hasNextLine()) {
+                String linha = leitor.nextLine().trim();
+
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                // Identifica qual seção está sendo lida
+                if (linha.equals("---CLIENTES---") || linha.equals("---SERVICOS---")) {
+                    secaoAtual = linha;
+                    continue;
+                }
+
+                String[] dados = linha.split(";");
+
+                if (secaoAtual.equals("---CLIENTES---") && dados.length >= 7) {
+                    String tipo = dados[0];
+                    String cpf = dados[1];
+                    String nome = dados[2];
+                    String telefone = dados[3];
+                    String endereco = dados[4];
+                    double valorMensalidade = Double.parseDouble(dados[5]);
+                    int codPlano = Integer.parseInt(dados[6]);
+
+                    Cliente c;
                     if (tipo.equals("M")) {
-                    	double valor = Double.parseDouble(partes[5]); // atof() do C
-                    	int codPlano = Integer.parseInt(partes[6]); 
-                        clientes.add(new Mensalista(nome, cpf, telefone, enderecoString,codPlano,valor));
-                         } else {
-                        	 clientes.add(new Irregular(nome, cpf, telefone, enderecoString));
-                         }
-                } else if (secaoAtual.equals("---SERVICOS---") && partes.length >= 3) {
-                    int id = Integer.parseInt(partes[0]);
-                    String nome = partes[1];
-                    double preco = Double.parseDouble(partes[2]);
-                    servicos.add(new Servico(id, nome, preco));
+                        // Usa a Factory para recriar o Mensalista
+                        c = FactoryCliente.createMensalista(nome, cpf, telefone, endereco, codPlano, valorMensalidade);
+                        
+                        // Mantém o contador de planos atualizado para não gerar códigos repetidos
+                        if (codPlano >= CodPlano) {
+                            CodPlano = codPlano + 1;
+                        }
+                    } else {
+                        // Usa a Factory para recriar o cliente Irregular
+                        c = FactoryCliente.createIregularCliente(nome, cpf, telefone, endereco);
+                    }
+
+                    clientes.add(c);
+
+                } else if (secaoAtual.equals("---SERVICOS---") && dados.length >= 3) {
+                    int codServico = Integer.parseInt(dados[0]);
+                    String descricao = dados[1];
+                    double valorUnidade = Double.parseDouble(dados[2]);
+
+                    servicos.add(new Servico(codServico, descricao, valorUnidade));
                 }
             }
         } catch (Exception e) {
-            // Se houver erro de parsing na leitura, inicia com listas limpas
-        	e.printStackTrace();
-        	throw new IllegalArgumentException("erro ao ler dados clientes");
+            System.err.println("Erro ao carregar dados do arquivo: " + e.getMessage());
         }
     }
 

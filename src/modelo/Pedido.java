@@ -73,7 +73,7 @@ public class Pedido {
 	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate, String nomeDonoPedido) {
 	    setDataPedidoDate(dataPedidoDate);
 	    setDataEntregaDate(dataEntregaDate);
-	    this.entregue = false;
+	    setEntregue(entregue);;
 	    setNomeDonoPedido(nomeDonoPedido);
 	    this.itens = new ArrayList<ItemPedido>();
 	}
@@ -94,12 +94,18 @@ public class Pedido {
         return total;
     }
     public String ficha() {
-		return "================== Pedidos ==================\n" +
+    	StringBuilder listaItens = new StringBuilder();
+    	
+    	for(ItemPedido item:itens) {
+    		listaItens.append(item.ficha());
+    	}
+    	
+		return "================== Pedido "+ getNomeDonoPedido() +" ==================\n" +
 	               "Código do pedido: " + getCodPedido()  +
-	               "Data do pedido: " + getDataPedidoDate() + "\n" +
+	               " Data do pedido: " + getDataPedidoDate() + "\n" +
 	               "Data de entrega: " + getDataEntregaDate()  +
-	               "Dono do pedido:" + getNomeDonoPedido() + "\n" +
-	               "Itens:" + getItens() + 
+	               " Dono do pedido:" + getNomeDonoPedido() + "\n" +
+	               "Itens:" + listaItens + 
 	               "\n==============================================\n" 
 	               ;
 	}

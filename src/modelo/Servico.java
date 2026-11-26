@@ -38,7 +38,7 @@ public class Servico {
 	
 	//Método que retonar a ficha dos Serviços
 	public String ficha() {
-		return "================== mensalista ==================\n" +
+		return "================== Serviço ==================\n" +
 	               "Código do serviço: " + getCodServico()  +
 	               " Descrição: " + getDescricao() + "\n" +
 	               "Telefone: " + getValorUnidade()  + 

@@ -62,12 +62,8 @@ public class CadastroClientePainel extends JFrame {
 	     String endereco = txtEndereco.getText();
 	     Cliente cliente;
 	     
-	    	 if(cbTipo.getSelectedIndex() == 0) {
-		    	 cliente = new Irregular(nome, cpf, telefone, endereco);
-		     }else {
-		    	 cliente = new Mensalista(nome, cpf, telefone, endereco,lavanderiaControle.gproximoCodPlano(),100);
-		     }
-		     lavanderiaControle.CadastrarCliente(cliente);
+	    	 
+	    cliente =  lavanderiaControle.CadastrarCliente(cbTipo.getSelectedIndex(),nome, cpf, telefone, endereco,100);
 		     
 		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
 		} catch (IllegalArgumentException e) {
