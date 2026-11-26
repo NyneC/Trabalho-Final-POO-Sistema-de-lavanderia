@@ -20,8 +20,8 @@ public class CadastrarPedidoPainel extends JFrame {
 
     private Controle lavanderiaControle;
 
-    public CadastrarPedidoPainel(Controle controle) {
-        this.lavanderiaControle = controle;
+    public CadastrarPedidoPainel() {
+        
 
         List<Cliente> clientes = controle.ListarClientes();
         if (clientes.isEmpty()) {

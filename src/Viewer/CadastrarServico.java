@@ -29,8 +29,8 @@ public class CadastrarServico extends JFrame{
 
     
     //Construtor
-    public CadastrarServico(Controle controle){
-   	 lavanderiaControle = controle;
+    public CadastrarServico(){
+   	 
    	 
    	 //exibe para o "dono" cadastrar o novo serviço
    	 painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));

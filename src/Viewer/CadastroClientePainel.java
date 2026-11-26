@@ -24,10 +24,9 @@ public class CadastroClientePainel extends JFrame {
      JComboBox<String> cbTipo = new JComboBox<>(new String[]{"Avulso (Irregular)", "Mensalista"});
      JButton btnSalvar = new JButton("Cadastrar Cliente");
      JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
-     Controle lavanderiaControle ;
 
-     public  CadastroClientePainel(Controle controle){
-    	 lavanderiaControle = controle;
+     public  CadastroClientePainel(){
+    	 Controle.getInstance();
     	 
     	 //exibe para o usuario e pega a entrada
     	 painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -63,7 +62,7 @@ public class CadastroClientePainel extends JFrame {
 	     Cliente cliente;
 	     
 	    	 
-	    cliente =  lavanderiaControle.CadastrarCliente(cbTipo.getSelectedIndex(),nome, cpf, telefone, endereco,100);
+	    cliente =  Controle.getInstance().CadastrarCliente(cbTipo.getSelectedIndex(),nome, cpf, telefone, endereco,100);
 		     
 		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
 		} catch (IllegalArgumentException e) {

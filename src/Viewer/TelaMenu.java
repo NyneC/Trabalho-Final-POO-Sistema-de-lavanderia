@@ -7,8 +7,6 @@ import javax.swing.*;
 
 
 public class TelaMenu extends JFrame {
-	private Controle lavanderiaControle = new Controle();
-	
 	private JPanel painel = new JPanel(new GridLayout(3, 1, 10, 10));
     private JButton btnCadastrarCliente = new JButton("Cadastrar Cliente");
     private JButton btnCadastrarPedido = new JButton("Cadastrar Pedido");
@@ -48,34 +46,33 @@ public class TelaMenu extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         
         try {
-			
-        	lavanderiaControle.ControleLavanderia();
+        	Controle.getInstance();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
 		}
     }
     
     private void abrirCadastroCliente() {
-        CadastroClientePainel telaCadastro = new CadastroClientePainel(lavanderiaControle);
+        CadastroClientePainel telaCadastro = new CadastroClientePainel();
         telaCadastro.setVisible(true);
     }
     
     private void abrirListaCLientes() {
-    	ListarClientes telaListarClientes = new ListarClientes(lavanderiaControle);
+    	ListarClientes telaListarClientes = new ListarClientes();
     	telaListarClientes.setVisible(true);
     }
     private void abrirCadastrarPedido() {
-        CadastrarPedidoPainel telaCadastrar = new CadastrarPedidoPainel(lavanderiaControle);
+        CadastrarPedidoPainel telaCadastrar = new CadastrarPedidoPainel();
         telaCadastrar.setVisible(true);
     }
     
     private void abrirListarPedidos() {
-    	ListarPedidos telaListarPedidos = new ListarPedidos(lavanderiaControle);
+    	ListarPedidos telaListarPedidos = new ListarPedidos();
     	telaListarPedidos.setVisible(true);
     }
     
     private void abrirCadastroServico() {
-    	CadastrarServico telaCadastrarServico = new CadastrarServico(lavanderiaControle);
+    	CadastrarServico telaCadastrarServico = new CadastrarServico();
     	telaCadastrarServico.setVisible(true);
     }
     

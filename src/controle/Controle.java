@@ -8,6 +8,25 @@ import modelo.*;
 public class Controle {
 	private static final String Historico = "dados.txt";
 	
+	//singleton
+	private static Controle instanciaControle;//para poder pegar direto class sem dar new*
+	
+	//tornei o construtor privado 
+    private Controle()  {
+        carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
+    }
+    
+    
+    //assim q faz "new" agr .get...
+    public static Controle getInstance() {
+        if (instanciaControle == null) {
+            instanciaControle = new Controle();
+        }
+        return instanciaControle;
+    }
+
+    
+    //Atributos para o sistema
     private List<Cliente> clientes = new ArrayList<>();
     private List<Servico> servicos = new ArrayList<>();
     private List<Pedido> pedidos = new ArrayList<>();
@@ -17,17 +36,12 @@ public class Controle {
     private int CodPlano = 0;
     
     public int proximoCodPedido() {
-        return CodPedido++;
-    }
-
-    public int gproximoCodPlano() {
-        return CodPlano++;
+    	return CodPedido++;
     }
     
-    public void ControleLavanderia()  {
-        carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
+    public int gproximoCodPlano() {
+    	return CodPlano++;
     }
-
     //Funções cliente
     public Cliente CadastrarCliente( int tipo,String nome, String cpf, String telefone, 
 			String enderecoString, double valorMensalidade){

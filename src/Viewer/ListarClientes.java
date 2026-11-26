@@ -18,8 +18,9 @@ public class ListarClientes extends JFrame {
 	private Controle lavanderiaControle;
 	private JTextArea lista = new JTextArea();
 	
-	public ListarClientes(Controle controle) {
-		lavanderiaControle = controle;//inicializa o controle e carrega os dados para ram;
+	public ListarClientes() {
+		
+		
 		lista.setEditable(false);//faz com q a pessoa n possa editar os campos
 		
 		JScrollPane listaScrollPane = new JScrollPane(lista);//faz a parte de scroll do mouse 

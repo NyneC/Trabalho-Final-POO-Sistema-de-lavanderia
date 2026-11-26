@@ -17,9 +17,9 @@ public class ListarPedidos extends JFrame {
 	private Controle lavanderiaControle;
 	private JTextArea lista = new JTextArea();
 
-    public ListarPedidos(Controle controle) {
+    public ListarPedidos() {
 
-    	lavanderiaControle = controle;//inicializa o controle e carrega os dados para ram;
+    	
     	lista.setEditable(false);//faz com q a pessoa n possa editar os campos
 		
 		JScrollPane listaScrollPane = new JScrollPane(lista);//faz a parte de scroll do mouse 
