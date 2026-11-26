@@ -18,22 +18,16 @@ public class CadastrarPedidoPainel extends JFrame {
     private JTextField txtQuantidade;
     private JTextArea txtAreaServicos;
 
-    private Controle lavanderiaControle;
-
     public CadastrarPedidoPainel() {
         
 
-        List<Cliente> clientes = controle.ListarClientes();
+        List<Cliente> clientes = Controle.getInstance().ListarClientes();
         if (clientes.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Cadastre pelo menos um cliente antes de registrar um pedido!",
                     "Aviso", JOptionPane.WARNING_MESSAGE);
             dispose();
             return;
-        }
-
-        if (controle.ListarServicos().isEmpty()) {
-            controle.CadastrarServico(new Servico(1, "Lavar e Passar", 25.00));
         }
 
         setTitle("Registrar Novo Pedido");
@@ -85,7 +79,7 @@ public class CadastrarPedidoPainel extends JFrame {
 
     private void carregarServicosNaTela() {
         StringBuilder sb = new StringBuilder();
-        List<Servico> servicos = lavanderiaControle.ListarServicos();
+        List<Servico> servicos = Controle.getInstance().ListarServicos();
         for (Servico s : servicos) {
             sb.append("ID: ").append(s.getCodServico())
               .append(" | ").append(s.getDescricao())
@@ -104,7 +98,7 @@ public class CadastrarPedidoPainel extends JFrame {
             }
 
             Cliente clienteEncontrado = null;
-            for (Cliente c : lavanderiaControle.ListarClientes()) {
+            for (Cliente c : Controle.getInstance().ListarClientes()) {
                 if (cpf.equalsIgnoreCase(c.getCpf())) {
                     clienteEncontrado = c;
                     break;
@@ -125,7 +119,7 @@ public class CadastrarPedidoPainel extends JFrame {
             }
 
             Servico servicoEncontrado = null;
-            for (Servico s : lavanderiaControle.ListarServicos()) {
+            for (Servico s : Controle.getInstance().ListarServicos()) {
                 if (s.getCodServico() == codServico) {
                     servicoEncontrado = s;
                     break;
@@ -138,11 +132,9 @@ public class CadastrarPedidoPainel extends JFrame {
             }
 
             LocalDate hojeDate = LocalDate.now();
-            Pedido pedido = new Pedido(hojeDate, hojeDate.plusDays(7), clienteEncontrado.getNome());
-
-            pedido.setCodPedido(lavanderiaControle.proximoCodPedido());
-            lavanderiaControle.AdicionarServicoAoPedido(pedido, servicoEncontrado, qtd);
-            lavanderiaControle.CriarPedido(pedido);
+            Pedido pedido = Controle.getInstance().CriarPedido(hojeDate, hojeDate, cpf);
+            
+            Controle.getInstance().AdicionarServicoAoPedido(pedido, servicoEncontrado, qtd);
 
             double total = pedido.calcularValorTotal(clienteEncontrado);
 
@@ -152,7 +144,7 @@ public class CadastrarPedidoPainel extends JFrame {
                     hojeDate.plusMonths(1)
             );
             cobranca.setCodPedido(pedido.getCodPedido());
-            lavanderiaControle.GerarCobranca(cobranca);
+            Controle.getInstance().GerarCobranca(cobranca);
 
             JOptionPane.showMessageDialog(this,
                     "[SUCESSO] Pedido e Cobrança no valor de R$ " + String.format("%.2f", total) + " gerados com sucesso!");

@@ -12,6 +12,7 @@ public class Controle {
 	private static Controle instanciaControle;//para poder pegar direto class sem dar new*
 	
 	//tornei o construtor privado 
+	//so pode ser dado new controle dentro da classe
     private Controle()  {
         carregarDoArquivo(); // Carrega os dados salvos no dados.txt para a memória RAM
     }
@@ -19,7 +20,7 @@ public class Controle {
     
     //assim q faz "new" agr .get...
     public static Controle getInstance() {
-        if (instanciaControle == null) {
+        if (instanciaControle == null) {//se n existir da um new dentro da propria class 
             instanciaControle = new Controle();
         }
         return instanciaControle;
@@ -71,21 +72,29 @@ public class Controle {
         return servicos;
 
     }
-    public void CadastrarServico(Servico s) {
+    public Servico CadastrarServico(int codServico, String descricao, double valorUnidade) {
+    	Servico s;
+    	s = new Servico(codServico, descricao, valorUnidade);
         if (s != null) {
             servicos.add(s);
             salvarNoArquivo();
         }
+        
+        return s;
     }
     //Funções pedido
-    public void CriarPedido(Pedido p){
+    public Pedido CriarPedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate, String nomeDonoPedido){
 
+    	Pedido p;
+    	p = new Pedido(dataPedidoDate, dataEntregaDate, nomeDonoPedido);
+    	p.setCodPedido(proximoCodPedido());
     	if (p != null) {
     		p.setCodPedido(proximoCodPedido());
             pedidos.add(p);
             salvarNoArquivo();
         }
 
+    	return p;
     }
     public void AdicionarServicoAoPedido(Pedido p,Servico s,int qtd){
     	

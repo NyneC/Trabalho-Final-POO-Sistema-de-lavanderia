@@ -15,7 +15,6 @@ import controle.*;
 import modelo.Cliente;
 public class ListarClientes extends JFrame {
 
-	private Controle lavanderiaControle;
 	private JTextArea lista = new JTextArea();
 	
 	public ListarClientes() {
@@ -25,7 +24,7 @@ public class ListarClientes extends JFrame {
 		
 		JScrollPane listaScrollPane = new JScrollPane(lista);//faz a parte de scroll do mouse 
 		
-		List<Cliente> listaClientes = lavanderiaControle.ListarClientes();//vetor para salvar os clientes q seão exibidos
+		List<Cliente> listaClientes = Controle.getInstance().ListarClientes();//vetor para salvar os clientes q seão exibidos
 		
 		StringBuilder listaCompletaBuilder = new StringBuilder();//cria como se fosse um editor de texto para poder juntar as fichas dos clientes
 		//para percorrer e add no "ditor de texto"

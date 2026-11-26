@@ -25,7 +25,6 @@ public class CadastrarServico extends JFrame{
     JTextField valorServicoJTextField = new JTextField();
     JButton salvarJButton = new JButton("Cadastrar Serviço");
     JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
-    Controle lavanderiaControle ;
 
     
     //Construtor
@@ -61,9 +60,9 @@ public class CadastrarServico extends JFrame{
 	     
 	     Servico servico;
 	     
-	     servico = new Servico(codServico, descricaoServico, valorServico);
+	     servico = Controle.getInstance().CadastrarServico(codServico, descricaoServico, valorServico);
 	     
-		     lavanderiaControle.CadastrarServico(servico);
+		    
 		     JOptionPane.showMessageDialog(this,servico.ficha() + "\n Criado com sucesso");
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);

@@ -14,7 +14,6 @@ public class TelaMenu extends JFrame {
     private JButton listarPedidosButton= new JButton("Listar Pedidos");
     private JButton btnSair = new JButton("Sair");
     private JButton cadastroServicoButton = new JButton("Cadastrar Serviço");
-    private JButton listaservicosButton = new JButton("Listar serviço");
     
     public TelaMenu() {
         // Espaçamento interno das bordas
@@ -25,10 +24,8 @@ public class TelaMenu extends JFrame {
         painel.add(btnCadastrarPedido);
         painel.add(listaClientesButton);
         painel.add(listarPedidosButton);
-        painel.add(btnSair);
         painel.add(cadastroServicoButton);
-        painel.add(listaservicosButton);
-
+        painel.add(btnSair);
         // Ouvintes 
         btnCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
         listaClientesButton.addActionListener(e -> abrirListaCLientes());
