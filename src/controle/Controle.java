@@ -3,6 +3,8 @@ package controle;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
+
+import excecoes.OperacaoLavanderiaException;
 import modelo.*;
 
 public class Controle {
@@ -43,29 +45,65 @@ public class Controle {
     public int gproximoCodPlano() {
     	return CodPlano++;
     }
+    
+    
+    //Observer
+    private List<Observador> observadores = new ArrayList<>();
+
+    public void adicionarObservador(Observador obs) {
+        observadores.add(obs);
+    }
+
+    private void notificarObservadores() {
+        for (Observador obs : observadores) {
+            obs.atualizar();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //Funções cliente
     public Cliente CadastrarCliente( int tipo,String nome, String cpf, String telefone, 
 			String enderecoString, double valorMensalidade){
 
     	Cliente c;
-    	if(tipo == 1) {
+    	
+    	// Em Controle.CadastrarCliente(...)
+    	if (tipo == 1) {
+    	    // cria Mensalista
     		c = FactoryCliente.createMensalista(nome, cpf, telefone, enderecoString, gproximoCodPlano(), valorMensalidade);
+    	} else if (tipo == 0) {
+    	    // cria Irregular
+    		c = FactoryCliente.createIregularCliente(nome, cpf, telefone, enderecoString);
     	} else {
-			c = FactoryCliente.createIregularCliente(nome, cpf, telefone, enderecoString);
-		}
+    	    throw new OperacaoLavanderiaException("Tipo de cliente inválido: " + tipo);
+    	}
+    
     	
     	if (c != null) {
             clientes.add(c); // .add(c): Inserção no fim do vetor dinâmico (aloca espaço automaticamente)
             salvarNoArquivo(); // Salva no disco imediatamente
         }
+    	
+    	notificarObservadores();//observer 
 
     	return c;
     }
+    
+    
     public List<Cliente> ListarClientes(){
 
         return clientes;
 
     }
+    
+    
     //Funções serviço
     public List<Servico> ListarServicos(){
 
@@ -78,6 +116,7 @@ public class Controle {
         if (s != null) {
             servicos.add(s);
             salvarNoArquivo();
+            notificarObservadores();//observer
         }
         
         return s;
@@ -91,6 +130,7 @@ public class Controle {
     		p.setCodPedido(proximoCodPedido());
             pedidos.add(p);
             salvarNoArquivo();
+            notificarObservadores();//observer
         }
 
     	return p;
@@ -100,6 +140,7 @@ public class Controle {
     	if (p != null && s != null && qtd > 0) {
             p.addItem(new ItemPedido(s, qtd)); // Chama a função interna do próprio Pedido
             salvarNoArquivo();
+            notificarObservadores();//observer
         }
 
     }
@@ -114,6 +155,7 @@ public class Controle {
     	if (c != null) {
             cobrancas.add(c);
             salvarNoArquivo();
+            notificarObservadores();//observer
         }
 
     }
@@ -134,6 +176,7 @@ public class Controle {
             }
             
             salvarNoArquivo();
+            notificarObservadores();//observer
         }
 
     }
@@ -152,6 +195,7 @@ public class Controle {
     
     
     //ARQUIVOS
+  //ARQUIVOS
     private void salvarNoArquivo() {
         // 'try-with-resources': Abre o arquivo e fecha automaticamente no final (como dar fclose)
         try (PrintWriter pw = new PrintWriter(new File(Historico))) {
@@ -161,20 +205,20 @@ public class Controle {
                 String tipo = (c instanceof Mensalista) ? "M" : "A";
                 // Casting: ((Mensalista) c) avisa o Java "trate a variável c como Mensalista para acessar getValorMensalidade()"
                 double valor = (c instanceof Mensalista) ? ((Mensalista) c).getValorMensalidade() : 0.0;
-                int codPlano = (c instanceof Mensalista) ? ((Mensalista) c).getCodPlano():0;
+                int codPlano = (c instanceof Mensalista) ? ((Mensalista) c).getCodPlano() : 0;
                 // Grava uma linha de texto separada por ';' (formato CSV/Texto)
-                pw.println(tipo + ";" + c.getCpf() + ";" + c.getNome() + ";" + c.getTelefone() + ";" + c.getEndereco()+ ";"  + valor+ ";" + codPlano );
+                pw.println(tipo + ";" + c.getCpf() + ";" + c.getNome() + ";" + c.getTelefone() + ";" + c.getEndereco() + ";" + valor + ";" + codPlano);
             }
-            
+
             pw.println("---SERVICOS---");
             for (Servico s : servicos) {
                 pw.println(s.getCodServico() + ";" + s.getDescricao() + ";" + s.getValorUnidade());
             }
-        } catch (Exception e) {
-            // Em caso de erro de I/O, apenas ignora para manter simples no ambiente acadêmico
+        } catch (IOException e) {
+            throw new OperacaoLavanderiaException("Falha ao salvar os dados no arquivo " + Historico, e);
         }
     }
-   
+
     private void carregarDoArquivo() {
         File arquivo = new File(Historico);
         if (!arquivo.exists()) {
@@ -212,7 +256,7 @@ public class Controle {
                     if (tipo.equals("M")) {
                         // Usa a Factory para recriar o Mensalista
                         c = FactoryCliente.createMensalista(nome, cpf, telefone, endereco, codPlano, valorMensalidade);
-                        
+
                         // Mantém o contador de planos atualizado para não gerar códigos repetidos
                         if (codPlano >= CodPlano) {
                             CodPlano = codPlano + 1;
@@ -232,9 +276,8 @@ public class Controle {
                     servicos.add(new Servico(codServico, descricao, valorUnidade));
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Erro ao carregar dados do arquivo: " + e.getMessage());
+        } catch (IOException | NumberFormatException e) {
+            throw new OperacaoLavanderiaException("Erro ao carregar dados do arquivo " + Historico, e);
         }
+    	}
     }
-
-}
