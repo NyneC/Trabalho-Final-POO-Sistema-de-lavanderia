@@ -10,8 +10,8 @@ public class ItemPedido {
 		return quantidade;
 	}
 	public void setQuantidade(int quantidade) {
-		if(quantidade<1) {
-			throw new IllegalArgumentException("Quantidade de itemPedido não pode ser negativo!");
+		if(quantidade<0) {
+			throw new IllegalArgumentException("Quantidade deve ser maior que zero!");
 		}
 		this.quantidade = quantidade;
 	}
@@ -30,9 +30,9 @@ public class ItemPedido {
 	//ItemPedido
 	public ItemPedido(Servico servico,int quantidade) {
 		super();
+		setValorTotal(valorTotalServiço());
+		setQuantidade(quantidade);
 		this.servico = servico;
-		this.quantidade = quantidade;
-		 setValorTotal(valorTotalServiço());
 	}
 	
 	//calcular o valor total do serviço 

@@ -41,7 +41,7 @@ public class Servico {
 		return "================== Serviço ==================\n" +
 	               "Código do serviço: " + getCodServico()  +
 	               " Descrição: " + getDescricao() + "\n" +
-	               "Telefone: " + getValorUnidade()  + 
+	               " Valor unidade " + getValorUnidade()  + 
 	               "\n==============================================\n" 
 	               ;
 	}

@@ -46,7 +46,10 @@ public abstract class Cliente {
 	}
 	
 	public void setCpf(String cpf) {
-		String cpfNumeros = cpf.replaceAll("[-.]", "");
+		if (cpf == null) {
+			throw new IllegalArgumentException("cpf invalido!");
+		}
+		String cpfNumeros = cpf.replaceAll("\\D", "");
 	  
 		if(cpfNumeros.length() != 11) {
 			throw new IllegalArgumentException("cpf invalido!");
@@ -65,15 +68,17 @@ public abstract class Cliente {
 		return nome;
 	}
 	public void setNome(String nome) {
-		if (nome.equals("")) {
+		if (nome == null || nome.trim().isEmpty()) {
 	        throw new IllegalArgumentException("O nome  não pode ficar vazio!");
 	    }
 		this.nome = nome;
 	}
 	
 	public void setTelefone(String telefone) {
-		
-		String teleNumeros = telefone.replaceAll("[-.]", "");
+		if (telefone == null) {
+			throw new IllegalArgumentException("telefone invalido!");
+		}
+		String teleNumeros = telefone.replaceAll("\\D", "");
 		  
 		if(teleNumeros.length() != 11) {
 			throw new IllegalArgumentException("telefone invalido!");
@@ -88,7 +93,7 @@ public abstract class Cliente {
 		return enderecoString;
 	}
 	public void setEnderecoString(String enderecoString) {
-		if(enderecoString.equals("")) {
+		if(enderecoString == null || enderecoString.trim().isEmpty()) {
 			throw new IllegalArgumentException("Endereço não pode estar vazio!");
 		}
 		this.enderecoString = enderecoString;
@@ -99,7 +104,7 @@ public abstract class Cliente {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
-		setEnderecoString(enderecoString);;
+		setEnderecoString(enderecoString);
 	}
 	
 	//clientes ficha
@@ -108,4 +113,3 @@ public abstract class Cliente {
 	
 	
 }
-   
