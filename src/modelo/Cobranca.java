@@ -72,4 +72,11 @@ public class Cobranca {
 		setValorTotal(valorTotal);
 		this.dataVencimenDate = dataVencimenDate;
 	}
+	public Cobranca(int codCobranca, double valorTotal, LocalDate dataVencimenDate, boolean pago) {
+
+	    this(codCobranca, valorTotal, dataVencimenDate);
+
+	    this.pago = pago;
+
+	}
 }

@@ -93,6 +93,21 @@ public class Pedido {
         }
         return total;
     }
+    public double calcularValorTotal(Cliente zeCliente, double descontoExtra) {
+
+        // Primeiro calcula o total com o desconto do cliente
+        double total = calcularValorTotal(zeCliente);
+
+        // Aplica o desconto extra sobre o valor restante
+        total = total - (total * descontoExtra);
+
+        // Garante que o valor nunca seja negativo
+        if (total < 0) {
+            total = 0;
+        }
+
+        return total;
+    }
     public String ficha() {
     	StringBuilder listaItens = new StringBuilder();
     	
