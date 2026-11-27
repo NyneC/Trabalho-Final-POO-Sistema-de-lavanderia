@@ -5,6 +5,7 @@ import modelo.Cobranca;
 import modelo.Pedido;
 import modelo.Servico;
 import controle.Controle;
+import excecoes.OperacaoLavanderiaException;
 
 import java.awt.*;
 import java.time.LocalDate;
@@ -153,7 +154,7 @@ public class CadastrarPedidoPainel extends JFrame {
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "O código do serviço e a quantidade devem ser números inteiros válidos!");
-        } catch (Exception ex) {
+        } catch (OperacaoLavanderiaException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao registrar o pedido: " + ex.getMessage());
         }
     }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import modelo.*;
 import controle.*;
+import excecoes.OperacaoLavanderiaException;
 
 public class CadastroClientePainel extends JFrame {
 
@@ -26,7 +27,7 @@ public class CadastroClientePainel extends JFrame {
      JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
 
      public  CadastroClientePainel(){
-    	 Controle.getInstance();
+    	 
     	 
     	 //exibe para o usuario e pega a entrada
     	 painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -52,23 +53,34 @@ public class CadastroClientePainel extends JFrame {
 	     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
      }
      private void criarCliente() {
-    	 
-	
-    	 try {
-	     String nome = txtNome.getText();
-	     String cpf = txtCpf.getText();
-	     String telefone = txtTelefone.getText();
-	     String endereco = txtEndereco.getText();
-	     Cliente cliente;
-	     
-	    	 
-	    cliente =  Controle.getInstance().CadastrarCliente(cbTipo.getSelectedIndex(),nome, cpf, telefone, endereco,100);
-		     
-		     JOptionPane.showMessageDialog(this,cliente.ficha() + "\n Criado com sucesso");
-		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
-		}
-	     
-     }
+    	    try {
+    	        String nome = txtNome.getText().trim();
+    	        String cpf = txtCpf.getText().trim();
+    	        String telefone = txtTelefone.getText().trim();
+    	        String endereco = txtEndereco.getText().trim();
+
+    	        if (nome.isEmpty() || cpf.isEmpty()) {
+    	            JOptionPane.showMessageDialog(this,
+    	                    "Preencha pelo menos Nome e CPF do cliente!",
+    	                    "Atenção", JOptionPane.WARNING_MESSAGE);
+    	            return;
+    	        }
+
+    	        Cliente cliente = Controle.getInstance().CadastrarCliente(
+    	                cbTipo.getSelectedIndex(), nome, cpf, telefone, endereco, 100);
+
+    	        JOptionPane.showMessageDialog(this,
+    	                cliente.ficha() + "\nCriado com sucesso");
+
+    	        txtNome.setText("");
+    	        txtCpf.setText("");
+    	        txtTelefone.setText("");
+    	        txtEndereco.setText("");
+    	    } catch (OperacaoLavanderiaException | IllegalArgumentException e) {
+    	        JOptionPane.showMessageDialog(this,
+    	                e.getMessage(),
+    	                "Erro", JOptionPane.ERROR_MESSAGE);
+    	    }
+    	}
 
 }

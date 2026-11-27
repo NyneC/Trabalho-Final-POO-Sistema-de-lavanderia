@@ -1,5 +1,6 @@
 package Viewer;
 import controle.*;
+import excecoes.OperacaoLavanderiaException;
 
 import java.awt.GridLayout;
 
@@ -44,7 +45,7 @@ public class TelaMenu extends JFrame {
         
         try {
         	Controle.getInstance();
-		} catch (Exception e) {
+		} catch (OperacaoLavanderiaException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),"erro",JOptionPane.ERROR_MESSAGE);
 		}
     }

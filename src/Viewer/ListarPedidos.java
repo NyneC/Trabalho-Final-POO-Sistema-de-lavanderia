@@ -21,7 +21,7 @@ public class ListarPedidos extends JFrame implements Observador {
 		
 		carregarListaPedidos();
 		
-		JPanel principalJPanel = new JPanel();//painel para poder mostrar lista para as pessoas
+		JPanel principalJPanel = new JPanel(new BorderLayout());//painel para poder mostrar lista para as pessoas
 		principalJPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));//padrao tudo de listar vai ter isso
 		principalJPanel.add(listaScrollPane,BorderLayout.CENTER);//add o lista no painel
 		
