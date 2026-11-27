@@ -73,7 +73,7 @@ public class Pedido {
 	public Pedido(LocalDate dataPedidoDate, LocalDate dataEntregaDate, String nomeDonoPedido) {
 	    setDataPedidoDate(dataPedidoDate);
 	    setDataEntregaDate(dataEntregaDate);
-	    setEntregue(entregue);;
+	    this.entregue = false;
 	    setNomeDonoPedido(nomeDonoPedido);
 	    this.itens = new ArrayList<ItemPedido>();
 	}

@@ -4,58 +4,55 @@ public class ItemPedido {
 	private int quantidade;
 	private double valorTotal;
 	private Servico servico;
-	
-	//Quantidade
+
 	public int getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(int quantidade) {
-		if(quantidade<0) {
-			throw new IllegalArgumentException("Quantidade deve ser maior que zero!");
+		if (quantidade < 1) {
+			throw new IllegalArgumentException("A quantidade do item deve ser maior que zero!");
 		}
 		this.quantidade = quantidade;
 	}
-	
-	//ValorTotal
+
 	public double getValorTotal() {
 		return valorTotal;
 	}
+
 	public void setValorTotal(double valorTotal) {
-		if(valorTotal<1) {
-			throw new IllegalArgumentException("valor total de itemPedido não pode ser negativo!");
+		if (valorTotal < 0) {
+			throw new IllegalArgumentException("O valor total do item não pode ser negativo!");
 		}
 		this.valorTotal = valorTotal;
 	}
-	
-	//ItemPedido
-	public ItemPedido(Servico servico,int quantidade) {
-		super();
-		setValorTotal(valorTotalServiço());
+
+	public ItemPedido(Servico servico, int quantidade) {
+		setServico(servico);
 		setQuantidade(quantidade);
-		this.servico = servico;
+		setValorTotal(valorTotalServiço());
 	}
-	
-	//calcular o valor total do serviço 
-	public double valorTotalServiço(){
-		double soma = servico.getValorUnidade() * getQuantidade();
-		
-		return soma;
+
+	public double valorTotalServiço() {
+		return servico.getValorUnidade() * getQuantidade();
 	}
+
 	public Servico getServico() {
 		return servico;
 	}
+
 	public void setServico(Servico servico) {
+		if (servico == null) {
+			throw new IllegalArgumentException("O serviço do item do pedido não pode ser nulo!");
+		}
 		this.servico = servico;
 	}
-	
-	   public String ficha() {
-			return 
-					"\n++++++++++++++++++++++++++++++\n"+
-		               "Serviço: " + servico.getDescricao()  +
-		               " Quantidade: " + getQuantidade() + "+\n" +
-		               " Valor total: " + getValorTotal()  +
-		              "\n++++++++++++++++++++++++++++++"
-		               ;
-	   }
-	
+
+	public String ficha() {
+		return "\n++++++++++++++++++++++++++++++\n" +
+				"Serviço: " + servico.getDescricao() +
+				" Quantidade: " + getQuantidade() + "\n" +
+				" Valor total: " + getValorTotal() +
+				"\n++++++++++++++++++++++++++++++";
+	}
 }
