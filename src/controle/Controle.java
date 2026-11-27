@@ -87,7 +87,6 @@ public class Controle {
 
     	Pedido p;
     	p = new Pedido(dataPedidoDate, dataEntregaDate, nomeDonoPedido);
-    	p.setCodPedido(proximoCodPedido());
     	if (p != null) {
     		p.setCodPedido(proximoCodPedido());
             pedidos.add(p);
